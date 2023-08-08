@@ -1,0 +1,134 @@
+[
+  {
+    "id": 1,
+    "title": "CremadeMani1",
+    "description": "pequeña descripcion de la crema1",
+    "price": 10,
+    "image": "https://i.postimg.cc/fkLqsXPD/crema.jpg",
+    "code": "abc001",
+    "stock": 23
+  },
+  {
+    "id": 2,
+    "title": "CremadeMani2",
+    "description": "pequeña descripcion de la crema2",
+    "price": 10,
+    "image": "https://i.postimg.cc/fkLqsXPD/crema.jpg",
+    "code": "abc002",
+    "stock": 23
+  },
+  {
+    "id": 3,
+    "title": "CremadeMani3",
+    "description": "pequeña descripcion de la crema3",
+    "price": 10,
+    "image": "https://i.postimg.cc/fkLqsXPD/crema.jpg",
+    "code": "abc003",
+    "stock": 23
+  },
+  {
+    "id": 4,
+    "title": "Mermelada1",
+    "description": "pequeña descripcion de la mermelada1",
+    "price": 15,
+    "image": "https://i.postimg.cc/FYtT06HH/mermelada.jpg",
+    "code": "abc004",
+    "stock": 24
+  },
+  {
+    "id": 5,
+    "title": "Mermelada2",
+    "description": "pequeña descripcion de la mermelada2",
+    "price": 15,
+    "image": "https://i.postimg.cc/FYtT06HH/mermelada.jpg",
+    "code": "abc005",
+    "stock": 24
+  },
+  {
+    "id": 6,
+    "title": "Mermelada3",
+    "description": "pequeña descripcion de la mermelada3",
+    "price": 15,
+    "image": "https://i.postimg.cc/FYtT06HH/mermelada.jpg",
+    "code": "abc006",
+    "stock": 24
+  },
+  {
+    "id": 7,
+    "title": "Miel1",
+    "description": "pequeña descripcion de la miel1",
+    "price": 15,
+    "image": "https://i.postimg.cc/ZCvfBmZQ/miel.jpg",
+    "code": "abc007",
+    "stock": 24
+  },
+  {
+    "id": 8,
+    "title": "Mermelada2",
+    "description": "pequeña descripcion de la miel2",
+    "price": 15,
+    "image": "https://i.postimg.cc/ZCvfBmZQ/miel.jpg",
+    "code": "abc008",
+    "stock": 24
+  },
+  {
+    "id": 9,
+    "title": "Miel3",
+    "description": "pequeña descripcion de la miel3",
+    "price": 15,
+    "image": "https://i.postimg.cc/ZCvfBmZQ/miel.jpg",
+    "code": "abc009",
+    "stock": 24
+  },
+  {
+    "id": 10,
+    "title": "Stevia1",
+    "description": "pequeña descripcion de la Stevia1",
+    "price": 11,
+    "image": "https://i.postimg.cc/BtVYnbWD/stevia.jpg",
+    "code": "abc010",
+    "stock": 28
+  },
+  {
+    "id": 11,
+    "title": "Stevia2",
+    "description": "pequeña descripcion de la Stevia2",
+    "price": 19,
+    "image": "https://i.postimg.cc/BtVYnbWD/stevia.jpg",
+    "code": "abc011",
+    "stock": 123,
+    "status": true,
+    "category": "stevia"
+  },
+  {
+    "id": 12,
+    "title": "Stevia3",
+    "description": "pequeña descripcion de la Stevia3",
+    "price": 29,
+    "image": "https://i.postimg.cc/BtVYnbWD/stevia.jpg",
+    "code": "abc012",
+    "stock": 18
+  },
+  {
+    "id": 13,
+    "title": "Stevia4",
+    "description": "pequeña descripcion de la stevia4",
+    "price": 10,
+    "image": "https://i.postimg.cc/BtVYnbWD/stevia.jpg",
+    "code": "abc014",
+    "category": "stevia",
+    "status": true,
+    "stock": 15
+  },
+  {
+    "id": 15,
+    "title": "Miel 4",
+    "description": "pequeña descripcion de la miel 4",
+    "price": "45",
+    "image": "https://i.postimg.cc/ZCvfBmZQ/miel.jpg",
+    "code": "abc123",
+    "category": "miel",
+    "status": true,
+    "stock": "12"
+  }
+]
