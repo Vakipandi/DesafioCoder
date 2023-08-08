@@ -1,41 +1,36 @@
-Desafio Complementario
+# Practica integradora
+Para escuchar el servidor ejercutar **npm run dev** . El servidor se estaescuchando en el puerto 3000
+## Endpoints para vistas y api
+### -***Vistas***
+- **Todos los productos ->** *localhost:3000/products*
+- **Formulario para agregar o eliminar productos ->** *localhost:3000/realtimeproducts*
+- **Chat (duplicar la pestaña) ->** *localhost:3000/chat*
 
-Para levantar el servidor ejecutar npm run dev. El servidor se levanta en el puerto 3000.
+### -***Api***
 
-Endpoints para las vistas y api:
+ #### Product Router
 
+- **All products api ->** *localhost:3000/api/products*
 
-Todos los productos -> localhost:3000/products
+- **Create product ->** *localhost:3000/api/products*
 
-Product Router
+- **Read product ->** *localhost:3000/api/products/:pid*
 
-view de todos los productos atraves de la api-> localhost:3000/api/products
+- **Update product ->** *localhost:3000/api/products/:pid*
 
-create product -> localhost:3000/api/products
+- **Delete product ->** *localhost:3000/api/products/:pid*
 
-buscar product -> localhost:3000/api/products/:pid
+#### Cart Router
 
-update product -> localhost:3000/api/products/:pid
+- **Create cart ->** *localhost:3000/api/carts*
 
-delete product -> localhost:3000/api/products/:pid
+- **Read cart ->** *localhost:3000/api/carts/:cid*
 
+- **Update cart ->** *localhost:3000/api/carts/:cid/product/:pid*
 
-Cart Router
+- **Delete product ->** *localhost:3000/api/carts/:cid/product/:pid*
 
-create cart -> localhost:3000/api/carts
-
-buscar cart -> localhost:3000/api/carts/:cid
-
-update cart -> localhost:3000/api/carts/:cid/product/:pid
-
-delete product -> localhost:3000/api/carts/:cid/product/:pid
-
-delete cart -> localhost:3000/api/carts/:cid
-
-
-Real Time Products 
-
-localhost:3000/realtimeproducts
+- **Delete cart ->** *localhost:3000/api/carts/:cid*
 
 Chat
 
