@@ -33,6 +33,3 @@ Para escuchar el servidor ejercutar **npm run dev** . El servidor se estaescucha
 - **Delete product ->** *localhost:3000/api/carts/:cid/product/:pid*
 
 - **Delete cart ->** *localhost:3000/api/carts/:cid*
-
-
-
