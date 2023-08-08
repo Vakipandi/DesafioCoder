@@ -3,7 +3,9 @@ Para escuchar el servidor ejercutar **npm run dev** . El servidor se estaescucha
 ## Endpoints para vistas y api
 ### -***Vistas***
 - **Todos los productos ->** *localhost:3000/products*
+  
 - **Formulario para agregar o eliminar productos ->** *localhost:3000/realtimeproducts*
+  
 - **Chat (duplicar la pestaña) ->** *localhost:3000/chat*
 
 ### -***Api***
@@ -32,7 +34,5 @@ Para escuchar el servidor ejercutar **npm run dev** . El servidor se estaescucha
 
 - **Delete cart ->** *localhost:3000/api/carts/:cid*
 
-Chat
 
-view de un chat interactivo duplicar para interactuar -> localhost:3000/chat
 
