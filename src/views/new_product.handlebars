@@ -1,5 +1,6 @@
 <form id="formProduct">
-  <h2>Real Time Products</h2>
+  <h2 class="formTitle">Formulario para agregar o eliminar productos</h2>
+ 
   <input
     class="controls"
     type="text"
@@ -56,7 +57,7 @@
     placeholder="Ingrese su code"
     required
   />
-  <button class="botons" type="submit" id="add-btn">Registrar </button>
+  <button class="botons" type="submit" id="add-btn">Añadir producto</button>
   <h2> Para eliminar un producto:</h2>
   <input
     class="controls"
@@ -64,6 +65,7 @@
     name="delete-id"
     id="delete-id"
     placeholder="Ingrese ID"
+    
   />
   <button class="botons" type="button" id="delete-btn">Eliminar</button>
 
@@ -71,4 +73,5 @@
 <article id="list-products">
 </article>
 <script src="/socket.io/socket.io.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/js/realTime.js"></script>

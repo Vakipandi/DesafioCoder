@@ -55,12 +55,17 @@ form.addEventListener("submit", (e) => {
     category
   };
   socketClient.emit("addProduct", product);
+  Swal.fire('Producto agregado')
   form.reset();
+
 });
 
 document.getElementById("delete-btn").addEventListener("click", () => {
   const deleteIdInput = document.getElementById("delete-id");
   const deleteId = deleteIdInput.value;
   socketClient.emit("deleteProduct", deleteId);
+  
   deleteIdInput.value = "";
+  Swal.fire('Producto eliminado')
+  form.reset();
 })

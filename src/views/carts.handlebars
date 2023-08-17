@@ -1,0 +1,38 @@
+<header>
+  <h1>Carrito de Compras</h1>
+</header>
+
+
+  {{#each cart.products}}
+    <main>
+      <section class="cart-items">
+        <article class="cart-item">
+          <img src="{{_id.image}}" alt="Product" />
+          <div class="item-details">
+            <h2>{{_id.title}}</h2>
+            <div>Cantidad: {{quantity}}</div>
+            <input type="hidden" name="productId" value="{{_id._id}}"/>
+            <p id="price">Precio: S/.{{_id.price}} soles.</p>
+            <button class="remove-button" id="delete-btn">Eliminar</button>
+            
+          </div>
+        </article>
+
+      </section>
+
+    </main>
+
+  {{/each}}
+
+
+<section class="cart-summary">
+  <h2>Resumen del Carrito</h2>
+  <p>Total: <span id="cartTotal">{{cart.total}} </span>soles.</p>
+  <button class="checkout-button">Realizar Compra</button>
+</section>
+
+<footer>
+  <p>&copy; 2023 Mi Tienda</p>
+</footer>
+
+<script src="/socket.io/socket.io.js"></script>
