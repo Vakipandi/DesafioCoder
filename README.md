@@ -1,4 +1,4 @@
-# Practica integradora
+# Segunda Entrega Ecommerce
 Para escuchar el servidor ejercutar **npm run dev** . El servidor se estaescuchando en el puerto 3000
 ## Endpoints para vistas y api
 ### -***Vistas***
