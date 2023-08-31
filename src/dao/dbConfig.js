@@ -1,7 +1,25 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import __dirname from '../utils.js';
 
-const URI =
-  "mongodb+srv://mauriciomamani306:1234@cluster0.k7q73pm.mongodb.net/ecommerce?retryWrites=true&w=majority";
-await mongoose.set("strictQuery", false);
-await mongoose.connect(URI);
-console.log("DB is connected");
+dotenv.config({
+  path: `${__dirname}/.env`,
+});
+
+const uri = process.env.DB_CONNECTION;
+
+async function connectDB() {
+  try {
+    console.log();
+    await mongoose.connect(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    mongoose.set('strictQuery', false);
+    console.log('Connect successfully!');
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+connectDB();
