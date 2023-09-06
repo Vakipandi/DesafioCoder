@@ -2,10 +2,10 @@ import { userModel } from '../models/users.model.js';
 
 export default async function (req, res, next) {
   try {
-    const { email, password } = req.body;
+    const { email } = req.body;
     let user = await userModel.findOne({ email });
     if (user) {
-      if (user && user.password === password) {
+      if (user) {
         next();
       }else{
         return res.status(401).json({

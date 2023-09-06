@@ -1,4 +1,5 @@
 import 'dotenv/config.js';
+import './dao/dbConfig.js';
 
 // working with express
 import express from 'express';
@@ -22,7 +23,9 @@ import MongoStore from 'connect-mongo';
 
 // socket.io
 import { Server } from 'socket.io';
-import './dao/dbConfig.js';
+import passport from 'passport';
+import initializePassport from './dao/middlewares/passport.js';
+
 
 // initialize express app
 // create a new express app
@@ -46,6 +49,11 @@ app.use(
     saveUninitialized: true,
   })
 );
+
+// passport
+initializePassport()
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.SECRET_KEY));

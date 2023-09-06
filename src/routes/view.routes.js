@@ -7,6 +7,7 @@ import is_admin from '../dao/middlewares/is_admin.js';
 import is_8_char from '../dao/middlewares/is_8_char.js';
 import is_form_ok from '../dao/middlewares/is_form_ok.js';
 import auth from '../dao/middlewares/auth.js';
+import verify_token from '../dao/middlewares/verify_token.js';
 
 
 const productMng = new ProductManager();
@@ -78,7 +79,7 @@ viewRouter.get('/products/:pid',auth, async (req, res, next) => {
   }
 });
 
-viewRouter.get('/new_product',is_admin, async (req, res, next) => {
+viewRouter.get('/new_product',/*is_admin*/ async (req, res, next) => {
   try {
     const listProducts = await productMng.getProducts();
     res.render('new_product', { listProducts, style: 'products.css' });
