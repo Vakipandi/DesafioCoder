@@ -12,20 +12,20 @@ import handlebars from 'express-handlebars';
 import __dirname from './utils.js';
 
 // importing routes
-import cartsRouter from './routes/carts.routes.js';
-import productsRouter from './routes/products.routes.js';
+import cartsRouter from './routes/api/carts.routes.js';
+import productsRouter from './routes/api/products.routes.js';
+import usersRouter from './routes/api/user.routes.js';
+import cookiesRouter from './routes/api/cookies.routes.js';
+import sessionsRouter from './routes/api/sessions.routes.js';
 import viewRouter from './routes/view.routes.js';
-import usersRouter from './routes/user.routes.js';
-import cookiesRouter from './routes/cookies.routes.js';
-import sessionsRouter from './routes/sessions.routes.js';
 import cookieParser from 'cookie-parser';
 import MongoStore from 'connect-mongo';
+
 
 // socket.io
 import { Server } from 'socket.io';
 import passport from 'passport';
 import initializePassport from './dao/middlewares/passport.js';
-
 
 // initialize express app
 // create a new express app
@@ -51,7 +51,7 @@ app.use(
 );
 
 // passport
-initializePassport()
+initializePassport();
 app.use(passport.initialize());
 app.use(passport.session());
 
