@@ -48,9 +48,8 @@ export default class MyRouter {
   delete(path, ...cbs) {
     this.router.delete(path, this.applyCb(cbs));
   }
-
   // use
   use(path, ...cbs) {
-    this.router.use(path, this.applyCb(cbs));
+    this.router.use(path, this.responses, this.applyCb(cbs));
   }
 }

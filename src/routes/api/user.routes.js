@@ -1,13 +1,14 @@
 import { Router } from 'express';
-import { userModel } from '../dao/models/users.model.js';
-import is_form_ok from '../dao/middlewares/is_form_ok.js';
-import is_8_char from '../dao/middlewares/is_8_char.js';
-import is_valid_user from '../dao/middlewares/is_valid_user.js';
-import is_same_email from '../dao/middlewares/is_same_email.js';
-import create_hash from '../dao/middlewares/create_hash.js';
-import is_valid_pass from '../dao/middlewares/is_valid_pass.js';
+import { userModel } from '../../dao/models/users.model.js';
+import is_form_ok from '../../dao/middlewares/is_form_ok.js';
+import is_8_char from '../../dao/middlewares/is_8_char.js';
+import is_valid_user from '../../dao/middlewares/is_valid_user.js';
+import is_same_email from '../../dao/middlewares/is_same_email.js';
+import create_hash from '../../dao/middlewares/create_hash.js';
+import is_valid_pass from '../../dao/middlewares/is_valid_pass.js';
 import passport from 'passport';
-import create_token from '../dao/middlewares/create_token.js';
+import create_token from '../../dao/middlewares/create_token.js';
+import is_admin from '../../dao/middlewares/is_admin.js';
 
 const userRouter = Router();
 

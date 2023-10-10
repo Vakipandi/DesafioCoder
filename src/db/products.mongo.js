@@ -1,13 +1,12 @@
 // CAPA DE PERSISTENCIA
 // encargada de realizar el CRUD
 
-import { deleteModel } from 'mongoose';
 import Product from './models/product.model.js';
 
 export default class ProductMongo {
   constructor() {}
 
-  async createProduct(product) {
+  async createModel(product) {
     let one = await Product.create(product);
     return {
       message: 'Product created successfully',

@@ -10,16 +10,16 @@ document.getElementById('login').addEventListener('click', (e) => {
     })
 
     .then((res) => {
-      console.log(res);
+      console.log(res.data);
       if (res.status === 200) {
-        const userRole = res.data.session.role;
+        const userRole = res.data.user.role;
         Swal.fire({
           title: res.data.message,
         });
 
         if (userRole === 1) {
           Swal.fire({
-            title: 'Eres un administrador',
+            title: 'You are admin',
           });
           window.location.href = 'http://localhost:3000/new_product';
         } else {
@@ -30,7 +30,7 @@ document.getElementById('login').addEventListener('click', (e) => {
     .catch((err) => {
       console.log(err);
       Swal.fire({
-        title: err.response.data.message,
+        title: err.data.message,
       });
       document.getElementById('password').value = '';
       document.getElementById('email').value = '';
