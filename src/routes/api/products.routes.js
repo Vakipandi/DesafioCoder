@@ -13,7 +13,20 @@ export default class ProductsRouter extends MyRouter {
       try {
         let data = req.body;
         let response = await productsController.createController(data);
-        return res.sendSuccessCreate(response)
+        return res.sendSuccessCreate(response);
+      } catch (error) {
+        next(error);
+      }
+    });
+
+    this.read('/', [], async (req, res, next) => {
+      try {
+        let response = await productsController.readController();
+        if (response) {
+          return res.sendSuccess(response);
+        } else {
+          return res.sendNotFound();
+        }
       } catch (error) {
         next(error);
       }

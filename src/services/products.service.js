@@ -12,4 +12,24 @@ export default class ProductsService {
     let response = this.model.createModel(data);
     return response;
   }
+
+  readService() {
+    let response = this.model.readModel();
+    return response;
+  }
+
+  readOneService(id) {
+    let response = this.model.readModelById(id);
+    return response;
+  }
+
+  updateService(id, data) {
+    let response = this.model.updateModel(id, data);
+    return response;
+  }
+  
+  deleteService(id) {
+    let response = this.model.deleteModel(id);
+    return response;
+  }
 }

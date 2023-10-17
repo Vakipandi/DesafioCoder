@@ -12,20 +12,19 @@ import handlebars from 'express-handlebars';
 import __dirname from './utils.js';
 
 // importing routes
-import cartsRouter from './routes/api/carts.routes.js';
-import productsRouter from './routes/api/products.routes.js';
-import usersRouter from './routes/api/user.routes.js';
-import cookiesRouter from './routes/api/cookies.routes.js';
-import sessionsRouter from './routes/api/sessions.routes.js';
 import viewRouter from './routes/view.routes.js';
 import cookieParser from 'cookie-parser';
 import MongoStore from 'connect-mongo';
 
+// import index router
+import IndexRouter from './routes/index.routes.js';
 
 // socket.io
 import { Server } from 'socket.io';
 import passport from 'passport';
-import initializePassport from './dao/middlewares/passport.js';
+// import initializePassport from './dao/middlewares/passport.js';
+
+const router = new IndexRouter();
 
 // initialize express app
 // create a new express app
@@ -51,9 +50,9 @@ app.use(
 );
 
 // passport
-initializePassport();
-app.use(passport.initialize());
-app.use(passport.session());
+// initializePassport();
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.SECRET_KEY));
@@ -67,11 +66,7 @@ app.set('view engine', 'handlebars');
 app.set('views', `${__dirname}/views`);
 
 // routes
-app.use('/api', cartsRouter);
-app.use('/api', productsRouter);
-app.use('/api', usersRouter);
-app.use('/api', cookiesRouter);
-app.use('/api', sessionsRouter);
+app.use('/api', router.getRouter());
 
 // view routes
 app.use('/', viewRouter);
