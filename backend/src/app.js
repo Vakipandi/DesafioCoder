@@ -1,36 +1,34 @@
-import 'dotenv/config.js';
-import './dao/db/dbConfig.js'
+// import dotenv from 'dotenv';
+// dotenv.config({ path: `${__dirname}/.env` });
 
-// working with express
+import './config/config.js'
+import MongoConnect from './config/Mongo.js';
 import express from 'express';
 import expressSession from 'express-session';
-
-//absolute path to the project folder
 import __dirname from './utils.js';
-
-// importing routes
 import cookieParser from 'cookie-parser';
 import MongoStore from 'connect-mongo';
-
-// import index router
 import IndexRouter from './routes/index.routes.js';
-
-// socket.io
-import { Server } from 'socket.io';
 import passport from 'passport';
 import initializePassport from './middlewares/passport.js';
+import cors from 'cors';
 
 const router = new IndexRouter();
 
-// initialize express app
-// create a new express app
 const app = express();
-
-// define the port
 const PORT = process.env.PORT;
 
-// understand the incoming data
+// express and middlewares
+app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser(process.env.SECRET_KEY));
+app.use(express.static(`${__dirname}/public`));
+
+// database
+// const db = new MongoConnect(process.env.DB_CONNECTION);
+// db.connectMongo();
+
 
 // express-session
 app.use(
@@ -50,21 +48,10 @@ initializePassport();
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser(process.env.SECRET_KEY));
-
-// static files
-app.use(express.static(`${__dirname}/public`));
-
-
 // routes
 app.use('/api', router.getRouter());
-
 
 // listen to the port
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });
-
-
-

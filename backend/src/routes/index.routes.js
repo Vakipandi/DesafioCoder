@@ -11,8 +11,9 @@ export default class IndexRouter extends MyRouter {
   init() {
     this.read('/', (req, res) => res.status(200).send('ECOMMERCE API'));
     this.use('/products', products.getRouter());
-    // this.use('/users', users.getRouter());
     this.use('/carts', carts.getRouter());
+   
+   
     
   }
 }

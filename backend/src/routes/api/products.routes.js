@@ -9,7 +9,7 @@ const productsController = new ProductsController();
 
 export default class ProductsRouter extends MyRouter {
   init() {
-    this.create('/', [], async (req, res, next) => {
+    this.create('/', async (req, res, next) => {
       try {
         let data = req.body;
         let response = await productsController.createController(data);
@@ -19,9 +19,52 @@ export default class ProductsRouter extends MyRouter {
       }
     });
 
-    this.read('/', [], async (req, res, next) => {
+    this.read('/', ['PUBLIC'], async (req, res, next) => {
       try {
         let response = await productsController.readController();
+        if (response) {
+          return res.sendSuccess(response);
+        } else {
+          return res.sendNotFound();
+        }
+      } catch (error) {
+        next(error);
+      }
+    });
+
+    this.read('/:id', async (req, res, next) => {
+      try {
+        let id = req.params.id;
+        let response = await productsController.readOneController(id);
+        if (response) {
+          return res.sendSuccess(response);
+        } else {
+          return res.sendNotFound();
+        }
+      } catch (error) {
+        next(error);
+      }
+    });
+
+    this.update('/:id', async (req, res, next) => {
+      try {
+        let id = req.params.id;
+        let data = req.body;
+        let response = await productsController.updateController(id, data);
+        if (response) {
+          return res.sendSuccess(response);
+        } else {
+          return res.sendNotFound();
+        }
+      } catch (error) {
+        next(error);
+      }
+    });
+
+    this.delete('/:id', async (req, res, next) => {
+      try {
+        let id = req.params.id;
+        let response = await productsController.deleteController(id);
         if (response) {
           return res.sendSuccess(response);
         } else {

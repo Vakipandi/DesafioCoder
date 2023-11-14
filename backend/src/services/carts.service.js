@@ -11,4 +11,9 @@ export default class CartService {
     let response = this.model.createModel(data);
     return response;
   }
+
+  readService(user_id, state) {
+    let response = this.model.readModels(user_id, state);
+    return response;
+  }
 }

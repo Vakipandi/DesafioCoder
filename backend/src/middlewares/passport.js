@@ -1,6 +1,7 @@
 import passport from 'passport';
 import { Strategy } from 'passport-local';
 import User from '../dao/db/models/user.model.js';
+import jwt from 'passport-jwt';
 import GhStrategy from 'passport-github2';
 
 export default function () {
@@ -50,7 +51,6 @@ export default function () {
       }
     )
   );
-
   passport.use(
     'github',
     new GhStrategy(
@@ -72,6 +72,29 @@ export default function () {
               password: profile.id,
             });
             return done(null, one);
+          }
+        } catch (error) {
+          done(error);
+        }
+      }
+    )
+  );
+  passport.use(
+    'jwt',
+    new jwt.Strategy(
+      {
+        jwtFromRequest: jwt.ExtractJwt.fromExtractors([
+          (req) => req?.cookies['token'],
+        ]),
+        secretOrKey: process.env.JWT_SECRET,
+      },
+      async (payload, done) => {
+        try {
+          let one = await User.findOne({ email: payload.email });
+          if (one) {
+            return done(null, one);
+          } else {
+            return done(null);
           }
         } catch (error) {
           done(error);

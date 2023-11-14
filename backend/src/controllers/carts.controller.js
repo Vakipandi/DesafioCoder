@@ -12,4 +12,10 @@ export default class CartController {
     let response = this.service.createService(data);
     return response;
   }
+
+  readController(user_id, state) {
+    let response = this.service.readService(user_id, state);
+    return response;
+
+  }
 }

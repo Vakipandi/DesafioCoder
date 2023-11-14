@@ -2,6 +2,7 @@
 // encargada de realizar el CRUD
 
 import Product from './models/product.model.js';
+import { Types } from 'mongoose';
 
 export default class ProductMongo {
   constructor() {}
@@ -15,11 +16,12 @@ export default class ProductMongo {
   }
 
   async readModel() {
-    let all = await Product.find();
-    if (all.length > 0) {
+    let all = await Product.paginate({}, { limit: 10, page: 1, lean: true });
+    // console.log(all);
+    if (all.docs.length > 0) {
       return {
         message: 'Products found',
-        response: { products: all },
+        response: { products: all.docs },
       };
     } else {
       return null;
@@ -50,7 +52,7 @@ export default class ProductMongo {
     }
   }
 
-  async deleteModel(id){
+  async deleteModel(id) {
     let one = await Product.findByIdAndDelete(id);
     if (one) {
       return {
@@ -60,6 +62,5 @@ export default class ProductMongo {
     } else {
       return null;
     }
-  
   }
 }
