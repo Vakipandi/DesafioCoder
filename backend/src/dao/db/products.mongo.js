@@ -2,17 +2,46 @@
 // encargada de realizar el CRUD
 
 import Product from './models/product.model.js';
-import { Types } from 'mongoose';
 
 export default class ProductMongo {
   constructor() {}
 
   async createModel(product) {
     let one = await Product.create(product);
+   
+    // console.log(one);
     return {
       message: 'Product created successfully',
       response: { product_id: one._id },
     };
+  }
+
+  async readFewModel() {
+    let fewProducts = await Product.paginate(
+      {},
+      { limit: 10, page: 1, lean: true }
+    );
+    if (fewProducts.docs.length > 0) {
+      return {
+        message: 'Few Products found',
+        response: { products: fewProducts.docs },
+      };
+    } else {
+      return null;
+    }
+  }
+
+  async readAllModel() {
+    let all = await Product.find().lean();
+    // console.log(all);
+    if (all.length > 0) {
+      return {
+        message: 'Products found',
+        response: { products: all },
+      };
+    } else {
+      return null;
+    }
   }
 
   async readModel() {

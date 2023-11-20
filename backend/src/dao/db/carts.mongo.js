@@ -30,4 +30,9 @@ export default class CartMongo {
       return null;
     }
   }
+
+  async readAllModels() {
+    let all = await Cart.find().lean();
+    return all;
+  }
 }

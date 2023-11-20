@@ -1,0 +1,189 @@
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        title:
+          description: Product name
+          type: string
+        description:
+          description: Description product
+          type: string
+        price:
+          description: Price of product
+          type: number
+        image:
+          description: Image of product
+          type: string
+        stock:
+          description: Stock of product
+          type: number
+        code:
+          description: Unique code of product
+          type: string
+        category:
+          description: Category of product
+          type: string
+        status:
+          description: Status of product
+          type: boolean
+      example:
+        title: zapatillas naiki,
+        description: zapatillas naiki 231231231
+        price: 321321
+        image: none
+        stock: 23
+        code: hola1235678
+        status: true
+        category: zapax
+  responses:
+    successCreate:
+      type: object
+      properties:
+        message: state of response
+        response: object created
+      example:
+        message: Product created successfully
+        response:
+          _id: 64d088336f9b050522246eb2
+          title: zapatillas naiki,
+          description: zapatillas naiki 231231231
+          price: 321321
+          image: none
+          stock: 23
+          code: hola1235678
+          status: true
+          category: zapax
+          
+    successRead:
+      type: object
+      properties: 
+        message: state of response
+        response: all products
+      example: 
+        message: All product Found
+        response:
+          - _id:  655a8928c8dc0d3923558322
+            title: vengamin bouton,
+            description: zapatillas naiki 1231
+            price: 321
+            image: none
+            stock: 23
+            code: holkt7238
+            status: true
+            category: zapatos
+          - _id:  655a88a1c8dc0d3923558320
+            title: zapatilla,
+            description: zapatillas naiki 231231231
+            price: 345
+            image: none
+            stock: 23
+            code: holkk54378
+            status: true
+            category: zapatillas
+          - _id: 655a88845bf8192fe53fd842
+            title: buzo,
+            description: buzo naiki 231231231
+            price: 345
+            image: none
+            stock: 23
+            code: holkkl378
+            status: true
+            category: buzo
+
+    notFound:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Indicador del estado de la respuesta
+        message:
+          type: string
+          description: Indicador de qué error se cometió
+      example:
+        status: error
+        message: Not found documents
+    fatal:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Indicador del estado de la respuesta
+        message:
+          type: string
+          description: Indicador de qué error se cometió
+      example:
+        status: fatal
+        message: dat is not defined
+paths:
+  /api/products:
+    post:
+      summary: Add new product
+      tags:
+        - Product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/Product'
+      responses:
+        '201':
+          description: Product created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/successCreate'
+        '404':
+          description: Documento/s no encontrados
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/notFound'
+        '500':
+          description: Falla del servidor al crear un producto
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/fatal'
+    get:
+      summary: Reald 10 products
+      tags:
+        - Product
+      responses:
+        '200':
+          description: All 10 Products found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/successRead'
+        '500':
+          description: Falla del servidor leer los productos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/fatal'
+  /api/products/all:
+    get:
+      summary: Read All products
+      tags:
+        - Product
+      responses:
+        '200':
+          description: All Products found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/successRead'
+        '500':
+          description: Falla del servidor leer los productos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/fatal'
+  /api/products/{pid}:
+    get:
+      sumary: update a product
+      tags: 
+      parameters:
+      responses:

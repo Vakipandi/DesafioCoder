@@ -18,4 +18,6 @@ export default {
   GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET,
   GITHUB_CB: process.env.GITHUB_CB,
   JWT_SECRET: process.env.JWT_SECRET,
+  G_MAIL: process.env.G_MAIL,
+  G_PASS: process.env.G_PASS,
 };

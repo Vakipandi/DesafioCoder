@@ -18,4 +18,10 @@ export default class CartController {
     return response;
 
   }
+
+  readAllController(){
+    let response = this.service.readAllService();
+    return response;
+  
+  }
 }

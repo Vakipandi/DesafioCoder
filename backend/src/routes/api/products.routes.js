@@ -9,7 +9,7 @@ const productsController = new ProductsController();
 
 export default class ProductsRouter extends MyRouter {
   init() {
-    this.create('/', async (req, res, next) => {
+    this.create('/', ['ADMIN', 'PUBLIC'], async (req, res, next) => {
       try {
         let data = req.body;
         let response = await productsController.createController(data);
@@ -21,32 +21,45 @@ export default class ProductsRouter extends MyRouter {
 
     this.read('/', ['PUBLIC'], async (req, res, next) => {
       try {
-        let response = await productsController.readController();
+        let response = await productsController.readFewController();
         if (response) {
           return res.sendSuccess(response);
         } else {
-          return res.sendNotFound();
+          return res.sendNotFound('Products');
         }
       } catch (error) {
         next(error);
       }
     });
 
-    this.read('/:id', async (req, res, next) => {
+    this.read('/all', ['PUBLIC', 'ADMIN'], async (req, res, next) => {
+      try {
+        let response = await productsController.readAllController();
+        if (response) {
+          return res.sendSuccess(response);
+        } else {
+          return res.sendNotFound('Products');
+        }
+      } catch (error) {
+        next(error);
+      }
+    });
+
+    this.read('/:id', ['PUBLIC'], async (req, res, next) => {
       try {
         let id = req.params.id;
         let response = await productsController.readOneController(id);
         if (response) {
           return res.sendSuccess(response);
         } else {
-          return res.sendNotFound();
+          return res.sendNotFound('Product');
         }
       } catch (error) {
         next(error);
       }
     });
 
-    this.update('/:id', async (req, res, next) => {
+    this.update('/:id', ['ADMIN'], async (req, res, next) => {
       try {
         let id = req.params.id;
         let data = req.body;
@@ -54,21 +67,21 @@ export default class ProductsRouter extends MyRouter {
         if (response) {
           return res.sendSuccess(response);
         } else {
-          return res.sendNotFound();
+          return res.sendNotFound('Product');
         }
       } catch (error) {
         next(error);
       }
     });
 
-    this.delete('/:id', async (req, res, next) => {
+    this.delete('/:id', ['ADMIN'], async (req, res, next) => {
       try {
         let id = req.params.id;
         let response = await productsController.deleteController(id);
         if (response) {
           return res.sendSuccess(response);
         } else {
-          return res.sendNotFound();
+          return res.sendNotFound('Product');
         }
       } catch (error) {
         next(error);

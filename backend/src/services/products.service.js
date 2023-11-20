@@ -13,8 +13,13 @@ export default class ProductsService {
     return response;
   }
 
-  readService() {
-    let response = this.repository.readRepository();
+  readFewService() {
+    let response = this.repository.readFewRepository();
+    return response;
+  }
+
+  readAllService() {
+    let response = this.repository.readAllRepository();
     return response;
   }
 
@@ -29,7 +34,7 @@ export default class ProductsService {
   }
 
   deleteService(id) {
-    let response = this.repository.deleteRepository(id );
+    let response = this.repository.deleteRepository(id);
     return response;
   }
 }

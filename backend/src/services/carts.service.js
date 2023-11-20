@@ -16,4 +16,9 @@ export default class CartService {
     let response = this.model.readModels(user_id, state);
     return response;
   }
+
+  readAllService() {
+    let response = this.model.readAllModels();
+    return response;
+  }
 }

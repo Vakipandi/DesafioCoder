@@ -1,5 +1,9 @@
 import { Router } from 'express';
 import jwt from 'jsonwebtoken';
+import MyError from '../config/MyError.js';
+import errors from '../config/errors.js';
+
+const { failed, unauthenticated, noauthorizated, notfound } = errors;
 
 export default class MyRouter {
   constructor() {
@@ -28,20 +32,20 @@ export default class MyRouter {
   responses = (req, res, next) => {
     res.sendSuccessCreate = (payload) => res.status(201).json(payload);
     res.sendSuccess = (payload) => res.status(200).json(payload);
-    //res.sendNotFound = payload => res.status(payload.status).json(payload.json)
-    res.sendNotFound = () =>
-      res.status(404).json({ success: false, response: 'Not found' });
-    res.sendNoAuthenticatedError = (error) =>
-      res.status(401).json({ status: 'error', error });
-    res.sendNoAuthorizatedError = (error) =>
-      res.status(403).json({ status: 'error', error });
+    res.sendFailed = () => MyError.new(failed.message, failed.code);
+    res.sendNotFound = (payload) =>
+      MyError.new(notfound(payload).message, notfound(payload).code);
+    res.sendNoAuthenticatedError = () =>
+      MyError.new(unauthenticated.message, unauthenticated.code);
+    res.sendNoAuthorizatedError = () =>
+      MyError.new(noauthorizated.message, noauthorizated.code);
+
     return next();
   };
 
   // policies
   handlePolicies = (policies) => (req, res, next) => {
-    
-      if (policies.includes('PUBLIC')) {
+    if (policies.includes('PUBLIC')) {
       return next();
     } else {
       const authHeaders = req.headers.authorization;
@@ -104,10 +108,6 @@ export default class MyRouter {
   }
   // use
   use(path, ...cbs) {
-    this.router.use(
-      path,
-      this.responses,
-      this.applyCb(cbs)
-    );
+    this.router.use(path, this.responses, this.applyCb(cbs));
   }
 }

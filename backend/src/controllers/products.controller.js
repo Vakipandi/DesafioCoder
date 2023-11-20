@@ -13,8 +13,12 @@ export default class ProductsController {
     return response;
   }
 
-  readController() {
-    let response = this.service.readService();
+  readFewController() {
+    let response = this.service.readFewService();
+    return response;
+  }
+  readAllController() {
+    let response = this.service.readAllService();
     return response;
   }
 
@@ -31,5 +35,5 @@ export default class ProductsController {
   deleteController(id) {
     let response = this.service.deleteService(id);
     return response;
-   }
+  }
 }

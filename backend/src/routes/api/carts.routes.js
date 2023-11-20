@@ -12,43 +12,40 @@ export default class CartRouter extends MyRouter {
   init() {
     this.create(
       '/',
-      ['USER'],
-      passport.authenticate('jwt'),
+      ['USER', 'PUBLIC'],
+      passport.authenticate('jwt', { session: false }), // Deshabilita la sesión ya que estás usando tokens JWT
       async (req, res, next) => {
         try {
-          let user = req.user;
-          let data = req.body;
-          if (user && user._id) {
-            data.user_id = user._id;
-          } else {
+          // Verifica si el usuario está autenticado
+          if (!req.isAuthenticated() || !req.user) {
             return res.sendNoAuthenticatedError('Authentication required');
           }
-
-          let response = await cartController.createController(data);
+          // Asigna el _id del usuario autenticado a data.user_id
+          const data = { ...req.body, user_id: req.user._id };
+          // Lógica para crear el carrito en cartController
+          const response = await cartController.createController(data);
+    
+          // Envía la respuesta de éxito
           return res.sendSuccessCreate(response);
         } catch (error) {
+          // Maneja errores
           next(error);
         }
       }
     );
 
-    // afterclass 21/09
+  
     this.read(
       '/',
-      ['USER'],
+      ['USER','PUBLIC'],
       // passport.authenticate('jwt'),
       async (req, res, next) => {
         try {
-          let user_id = req.user._id;
-          let state = 'PENDING';
-          if (req.query.state) {
-            state = req.query.state;
-          }
-          let response = await cartController.readController(user_id, state);
+            let response = await cartController.readAllController();
           if (response) {
             return res.sendSuccess(response);
           } else {
-            return res.sendNotFound();
+            return res.sendNotFound('Cart');
           }
         } catch (error) {
           next(error);
