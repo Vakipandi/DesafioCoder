@@ -44,19 +44,7 @@ export default class ProductMongo {
     }
   }
 
-  async readModel() {
-    let all = await Product.paginate({}, { limit: 10, page: 1, lean: true });
-    // console.log(all);
-    if (all.docs.length > 0) {
-      return {
-        message: 'Products found',
-        response: { products: all.docs },
-      };
-    } else {
-      return null;
-    }
-  }
-
+ 
   async readModelById(id) {
     let one = await Product.findById(id);
     if (one) {

@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon src/app.js",
     "devdev": "nodemon src/app.js 7000",
-    "fakerproduct": "node src/dao/data/products.mock.js"
+    "fakerproduct": "node src/dao/data/products.mock.js",
+    "test": "mocha test/mocha"
   },
   "keywords": [],
   "author": "",
@@ -48,5 +49,8 @@
     "winston": "^3.11.0",
     "winston-transport": "^4.6.0"
   },
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "mocha": "^10.2.0"
+  }
 }

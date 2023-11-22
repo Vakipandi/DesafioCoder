@@ -54,16 +54,16 @@ components:
           code: hola1235678
           status: true
           category: zapax
-          
+
     successRead:
       type: object
-      properties: 
+      properties:
         message: state of response
         response: all products
-      example: 
+      example:
         message: All product Found
         response:
-          - _id:  655a8928c8dc0d3923558322
+          - _id: 655a8928c8dc0d3923558322
             title: vengamin bouton,
             description: zapatillas naiki 1231
             price: 321
@@ -72,7 +72,7 @@ components:
             code: holkt7238
             status: true
             category: zapatos
-          - _id:  655a88a1c8dc0d3923558320
+          - _id: 655a88a1c8dc0d3923558320
             title: zapatilla,
             description: zapatillas naiki 231231231
             price: 345
@@ -90,6 +90,24 @@ components:
             code: holkkl378
             status: true
             category: buzo
+
+    successReadOne:
+      type: object
+      properties:
+        message: state of response
+        response: one product
+      example:
+        message: One product Found
+        response:
+          - _id: 655a8928c8dc0d3923558322
+            title: vengamin bouton,
+            description: zapatillas naiki 1231
+            price: 321
+            image: none
+            stock: 23
+            code: holkt7238
+            status: true
+            category: zapatos
 
     notFound:
       type: object
@@ -147,7 +165,7 @@ paths:
               schema:
                 $ref: '#/components/responses/fatal'
     get:
-      summary: Reald 10 products
+      summary: Read 10 Products
       tags:
         - Product
       responses:
@@ -170,7 +188,7 @@ paths:
         - Product
       responses:
         '200':
-          description: All Products found
+          description: All Product found
           content:
             application/json:
               schema:
@@ -181,9 +199,34 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/fatal'
-  /api/products/{pid}:
+  /api/products/{id}:
     get:
-      sumary: update a product
-      tags: 
+      summary: Read a One Product
+      tags:
+        - Product
       parameters:
+        - name: id
+          in: path
+          required: true
+          description: ObjectId of product
+          schema:
+            $type: string
       responses:
+        '200':
+          description: Product found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/successReadOne'
+        '404':
+          description: Documento/s no encontrados
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/notFound'
+        '500':
+          description: Falla del servidor leer los productos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/fatal'

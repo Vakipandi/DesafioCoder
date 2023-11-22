@@ -52,7 +52,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-
 app.use(compression({ brotli: { enabled: true, zlib: {} } }));
 // routes
 app.use('/api', router.getRouter());
