@@ -1,35 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Navbar from './Components/Navbar/Navbar';
+import HomeScreen from './Pages/HomeScreen';
+import Footer from './Components/Footer/Footer';
+import Polos from './Components/Polos/Polos';
+import Pantalones from './Components/Pantalones/Pantalones';
+import Gorras from './Components/Gorras/Gorras';
+import Zapatos from './Components/Zapatos/Zapatos';
+import ContactanosScreen from './Pages/ContactanosScreen';
+import SearchScreen from './Pages/SearchScreen';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<HomeScreen />} />
+          <Route path="/products" element={<HomeScreen />} />
+          <Route path="/products/polos" element={<Polos />} />
+          <Route path="/products/pantalones" element={<Pantalones />} />
+          <Route path="/products/gorras" element={<Gorras />} />
+          <Route path="/products/zapatos" element={<Zapatos />} />
+          <Route path="/contactanos" element={<ContactanosScreen />} />
+          <Route path="/search/:searchQuery" element={<SearchScreen />} />
+          
+        </Routes>
+        <Footer />
+      </BrowserRouter>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

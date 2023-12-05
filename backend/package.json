@@ -7,7 +7,9 @@
     "dev": "nodemon src/app.js",
     "devdev": "nodemon src/app.js 7000",
     "fakerproduct": "node src/dao/data/products.mock.js",
-    "test": "mocha test/mocha"
+    "mocha": "mocha test/mocha",
+    "chai": "mocha test/chai",
+    "supertest": "mocha test/supertest"
   },
   "keywords": [],
   "author": "",
@@ -51,6 +53,8 @@
   },
   "description": "",
   "devDependencies": {
-    "mocha": "^10.2.0"
+    "chai": "^4.3.10",
+    "mocha": "^10.2.0",
+    "supertest": "^6.3.3"
   }
 }

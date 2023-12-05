@@ -21,7 +21,9 @@ export default class ProductsRouter extends MyRouter {
 
     this.read('/', ['PUBLIC'], async (req, res, next) => {
       try {
-        let response = await productsController.readFewController();
+
+        let page = req.query.page || 1;
+       let response = await productsController.readFewController(page);
         if (response) {
           return res.sendSuccess(response);
         } else {
@@ -31,6 +33,7 @@ export default class ProductsRouter extends MyRouter {
         next(error);
       }
     });
+    
 
     this.read('/all', ['PUBLIC', 'ADMIN'], async (req, res, next) => {
       try {
@@ -44,6 +47,21 @@ export default class ProductsRouter extends MyRouter {
         next(error);
       }
     });
+
+    this.read('/:category', ['PUBLIC'], async (req, res, next) => {
+      try {
+        let category = req.params.category;
+        let response = await productsController.readCategoryController(category);
+        if (response) {
+          return res.sendSuccess(response);
+        } else {
+          return res.sendNotFound(`${category} product`);
+        }
+      } catch (error) {
+        next(error);
+      }
+    
+    })
 
     this.read('/:id', ['PUBLIC'], async (req, res, next) => {
       try {

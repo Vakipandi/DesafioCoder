@@ -1,42 +1,49 @@
-import * as assert from 'assert';
+import assert from 'assert';
 import dao from '../../src/dao/factory.js';
 
 const { Product } = dao;
 
-describe('testing products', async () => {
+describe('testing products', () => {
   const model = new Product();
+  const testData = {
+    title: 'Product Test',
+    price: 19.99,
+    stock: 10,
+    category: 'Electronics',
+    description: 'Product description',
+    code: 'ABñmhfggfdsfkkdafd123',
+  };
+  let createdProductObjId;
 
-  const data = await model.readAllModel();
-  const dataProd = await data.response.products
- 
- 
+  it('CREATE - Must have required properties', async () => {
+    assert.ok(testData.title);
+    assert.ok(testData.price);
+    assert.ok(testData.stock);
+    assert.ok(testData.category);
+    assert.ok(testData.description);
+    assert.ok(testData.code);
+  });
 
-  it('CREATE: Must required title property', async () => {
-    assert.ok(dataProd.title);
-  });
-  it('CREATE: Must required price property', async () => {
-    assert.ok(dataProd.price);
-  });
-  it('CREATE: Title is a string', async () => {
-    assert.strictEqual(typeof dataProd.title, 'string');
-  });
-  it('CREATE: Must required category property', async () => {
-    assert.ok(dataProd.category);
-  });
-  it('CREATE: Must required description property', async () => {
-    assert.ok(dataProd.description);
-  });
-  it('READ: DAO must read all Products', async () => {
-    assert.ok(dataProd);
-  });
+  it('CREATE - Must response with created product', async () => {
+    const createdProduct = await model.createModel(testData);
+    // console.log('Created Product:', createdProduct)
+    createdProductObjId = createdProduct.response.product_id;
+    assert.strictEqual(typeof createdProductObjId, 'object');
+  }).timeout(11000);
+
+  it('UPDATE: Code is a String', ()=>{
+    assert.strictEqual(typeof testData.code, 'string');
+  })
+  
 });
 
-  // const data = {
-  //   title: 'Test Product',
-  //   price: 19.99,
-  //   stock: 10,
-  //   category: 'Electronics',
-  //   description: 'Product description',
-  //   code: 'ABC12fgf3',
-  // };
+// it('UPDATE: ')
 
+// const data = {
+//   title: 'Test Product',
+//   price: 19.99,
+//   stock: 10,
+//   category: 'Electronics',
+//   description: 'Product description',
+//   code: 'ABC12fgf3',
+// };

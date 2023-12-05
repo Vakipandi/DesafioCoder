@@ -17,14 +17,20 @@ export default class ProductRepository {
     return response;
   }
 
-  readFewRepository() {
-    let response = this.model.readFewModel();
+  readFewRepository(page) {
+    let response = this.model.readFewModel(page);
     return response;
   }
 
   readAllRepository() {
     let response = this.model.readAllModel();
     return response;
+  }
+  
+  readCategoryRepository(category) {
+    let response = this.model.readCategoryModel(category);
+    return response;
+
   }
 
   readOneRepository(id) {

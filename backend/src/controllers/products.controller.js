@@ -13,13 +13,19 @@ export default class ProductsController {
     return response;
   }
 
-  readFewController() {
-    let response = this.service.readFewService();
+  readFewController(page) {
+    let response = this.service.readFewService(page);
     return response;
   }
   readAllController() {
     let response = this.service.readAllService();
     return response;
+  }
+
+  readCategoryController(category) {
+    let response = this.service.readCategoryService(category);
+    return response;
+
   }
 
   readOneController(id) {

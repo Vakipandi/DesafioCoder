@@ -29,8 +29,15 @@ const specs = swaggerJSDoc(options);
 // winston
 app.use(winston);
 
-// express and middlewares
-app.use(cors());
+// cors
+app.use(
+  cors({
+    origin: 'http://localhost:5173',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -62,5 +69,5 @@ app.use(errorHandler);
 
 // listen to the port
 app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
+  console.log(`Server listening on port http://localhost:${PORT}`);
 });

@@ -13,13 +13,18 @@ export default class ProductsService {
     return response;
   }
 
-  readFewService() {
-    let response = this.repository.readFewRepository();
+  readFewService(page) {
+    let response = this.repository.readFewRepository(page);
     return response;
   }
 
   readAllService() {
     let response = this.repository.readAllRepository();
+    return response;
+  }
+
+  readCategoryService(category) {
+    let response = this.repository.readCategoryRepository(category);
     return response;
   }
 
