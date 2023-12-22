@@ -68,10 +68,10 @@ app.use(compression({ brotli: { enabled: true, zlib: {} } }));
 app.use('/api', router.getRouter());
 
 const _dirname = path.resolve();
-app.use(path.join(_dirname, '../frontend/dist'));
+app.use(express.static(path.join(_dirname, '../frontend/dist')));
+
 app.get('*', (req, res, next) => {
   res.sendFile(path.join(_dirname, '../frontend/dist/index.html'));
-  
 });
 
 // error handler
