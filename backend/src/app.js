@@ -58,7 +58,7 @@ app.use('/api/docs', serve, setup(specs));
 const _dirname = path.resolve();
 app.use(path.join(_dirname, '../frontend/dist'));
 app.get('*', (req, res) => {
-  path.join(_dirname, '../frontend/dist/index.html');
+  path.join(_dirname, '../frontend/dist/index.html')
 });
 
 // express-session
