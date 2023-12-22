@@ -1,15 +1,17 @@
 {
   "name": "practicaintegradoracoder",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/app.js",
   "type": "module",
   "scripts": {
+    "start": "node src/app.js",
     "dev": "nodemon src/app.js",
     "devdev": "nodemon src/app.js 7000",
     "fakerproduct": "node src/dao/data/products.mock.js",
     "mocha": "mocha test/mocha",
     "chai": "mocha test/chai",
     "supertest": "mocha test/supertest"
+
   },
   "keywords": [],
   "author": "",

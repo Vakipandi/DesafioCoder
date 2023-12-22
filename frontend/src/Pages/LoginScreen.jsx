@@ -93,7 +93,7 @@ const LoginScreen = () => {
                 </button>
                 <br />
               </form>
-              <GitHubLoginButton />
+              {/* <GitHubLoginButton /> */}
               {error && (
                 <div className="alert alert-danger mt-3" role="alert">
                   {error}
