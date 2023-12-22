@@ -19,6 +19,7 @@ import errorHandler from './middlewares/errorHandler.js';
 import swaggerJSDoc from 'swagger-jsdoc';
 import { serve, setup } from 'swagger-ui-express';
 import options from './config/swagger.js';
+import fs from 'fs';
 
 const router = new IndexRouter();
 
@@ -68,10 +69,16 @@ app.use(compression({ brotli: { enabled: true, zlib: {} } }));
 app.use('/api', router.getRouter());
 
 const _dirname = path.resolve();
+const indexHtmlPath = path.join(_dirname, '../frontend/dist/index.html');
+
 app.use(express.static(path.join(_dirname, '../frontend/dist')));
 
 app.get('*', (req, res, next) => {
-  res.sendFile(path.join(_dirname, '../frontend/dist/index.html'));
+  if (fs.existsSync(indexHtmlPath)) {
+    res.sendFile(indexHtmlPath);
+  } else {
+    res.status(404).send('File not found');
+  }
 });
 
 // error handler
