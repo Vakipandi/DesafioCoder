@@ -25,8 +25,7 @@ const HomeScreen = () => {
   const fetchProducts = async (page) => {
     try {
       const result = await axios.get(
-        `https://coder-ecommerce-gugg.onrender.com
-        /api/products?page=${page}`
+        `https://coder-ecommerce-gugg.onrender.com/api/products?page=${page}`
       );
 
       const { products: paginatedProducts, control } = result.data.response;
