@@ -35,4 +35,41 @@ export default class CartMongo {
     let all = await Cart.find().lean();
     return all;
   }
+
+  async readOneModel(user_id) {
+    let one = await Cart.findOne({ user_id }).lean();
+    return {
+      response: one,
+      message: 'Cart found',
+    };
+  }
+
+  // update
+  async updateModel(user_id, data) {
+    let one = await Cart.findOneAndUpdate(
+      { user_id },
+      { $set: data },
+      { new: true }
+    );
+    if (one) {
+      return {
+        message: 'Product updated!',
+        response: one,
+      };
+    } else {
+      return null;
+    }
+  }
+
+  // delete
+  async deleteModel(user_id) {
+    let one = await Cart.findOneAndDelete({ user_id });
+    if (one) {
+      return {
+        message: 'Cart deleted',
+      };
+    } else {
+      return null;
+    }
+  }
 }

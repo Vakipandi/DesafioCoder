@@ -1,33 +1,52 @@
 import User from '../db/models/user.model.js';
+import bycript from 'bcrypt';
 
 export default class UserMongo {
   constructor() {}
 
   async register(data) {
-    let one = await User.create(data);
-    return {
-      message: 'User registered',
-      response: 'user_id: ' + one._id,
-    };
+    try {
+      let one = await User.create(data);
+      return {
+        message: 'User registered',
+        response: one,
+      };
+    } catch (error) {
+      console.error('Error during user registration:', error);
+
+      if (error.code === 11000) {
+        // Manejar error de duplicados
+        return {
+          message: 'El correo electrónico ya está en uso.',
+          error: {
+            index: error.index,
+            keyPattern: error.keyPattern,
+            keyValue: error.keyValue,
+          },
+        };
+      }
+
+      throw error;
+    }
   }
 
   login() {
     return {
-      message: 'User logged in',
-      response: true,
+      success: true,
+      message: 'User Logged In',
     };
   }
 
   logout() {
     return {
-      message: 'User logged out',
-      response: true,
+      success: true,
+      message: 'User Logged Out',
     };
   }
 
   async readOne(email) {
     let one = await User.findOne({ email: email });
-       if (one) {
+    if (one) {
       return {
         message: 'User found',
         response: one,
@@ -51,6 +70,22 @@ export default class UserMongo {
     if (one) {
       return {
         message: 'User updated!',
+        response: one,
+      };
+    } else {
+      return null;
+    }
+  }
+
+  async resetPass(email, newPass) {
+    const hashedPassword = await bcrypt.hash(newPass, 10);
+    let one = await User.findOneAndUpdate(
+      { email: email },
+      { password: hashedPassword }
+    );
+    if (one) {
+      return {
+        message: 'Password updated!',
         response: one,
       };
     } else {

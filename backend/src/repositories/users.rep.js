@@ -12,9 +12,11 @@ export default class UserRepository {
     this.model = new User();
   }
 
-  register(data) {
+  async register(data) {
     let dataDto = new UserDto(data);
-    let response = this.model.register(dataDto);
+    console.log('dataDTO', dataDto);
+    let response = await this.model.register(dataDto);
+    console.log('response', response);
     return response;
   }
 

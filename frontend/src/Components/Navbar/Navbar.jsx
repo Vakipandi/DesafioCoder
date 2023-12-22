@@ -1,7 +1,16 @@
 import { Link } from 'react-router-dom';
 import SearchForm from '../SearchForm/SearchForm';
+import Cart from './Cart/Cart';
+import { useAuth } from '../../Context/AuthContext';
+import Logout from '../Logout/Logout';
 
 const Navbar = () => {
+  const { userInfo, isAuthenticated } = useAuth();
+  const itemCount = 3;
+
+
+ 
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-body-tertiary bg-secondary-subtle">
@@ -88,12 +97,39 @@ const Navbar = () => {
             </ul>
             <SearchForm />
             <div className="gap-3 m-2">
-              <Link to="/auth/login" className="m-1 btn btn-outline-danger">
-                Login
-              </Link>
-              <Link to="/auth/register" className="m-1 btn btn-outline-danger">
-                Register
-              </Link>
+              {isAuthenticated ? (
+                <>
+                  <img
+                    src={userInfo.photo}
+                    alt="User Avatar"
+                    className="m-1 rounded-circle"
+                    style={{
+                      width: '30px',
+                      height: '30px',
+                      objectFit: 'cover',
+                    }}
+                  />
+                  <span className="m-1 text-black">
+                    Bienvenido, {userInfo.name}
+                  </span>
+                  <Logout />
+                </>
+              ) : (
+                <>
+                  <Link to="/auth/login" className="m-1 btn btn-outline-danger">
+                    Login
+                  </Link>
+                  <Link
+                    to="/auth/register"
+                    className="m-1 btn btn-outline-danger"
+                  >
+                    Register
+                  </Link>
+                </>
+              )}
+            </div>
+            <div>
+              <Cart itemCount={itemCount} />
             </div>
           </div>
         </div>

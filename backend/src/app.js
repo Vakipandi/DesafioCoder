@@ -30,18 +30,22 @@ const specs = swaggerJSDoc(options);
 app.use(winston);
 
 // cors
-app.use(
-  cors({
-    origin: 'http://localhost:5173',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true,
-  })
-);
+// app.use(cors());
+
+
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:5173')
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+  res.header('Access-Control-Allow-Credentials', 'true')
+  next()
+})
+
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser(process.env.SECRET_KEY));
+app.use(cookieParser(process.env.JWT_SECRET, { sameSite: 'None' }));
 app.use(express.static(`${__dirname}/public`));
 
 app.use('/api/docs', serve, setup(specs));
@@ -57,7 +61,6 @@ app.use(sessions);
 initializePassport();
 app.use(passport.initialize());
 app.use(passport.session());
-
 
 app.use(compression({ brotli: { enabled: true, zlib: {} } }));
 // routes

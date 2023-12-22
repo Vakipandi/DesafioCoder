@@ -3,7 +3,7 @@ import { Command } from 'commander';
 const program = new Command();
 
 program
-  .option('-p <port>', 'port', 7000)
+  .option('-p <port>', 'port', 5000)
   .option('--persistence <persistence>', 'persistence', 'MONGO')
   .option('--mode <mode>', 'mode', 'dev');
 

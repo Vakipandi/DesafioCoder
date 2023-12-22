@@ -24,7 +24,7 @@ export default class CartRouter extends MyRouter {
           const data = { ...req.body, user_id: req.user._id };
           // Lógica para crear el carrito en cartController
           const response = await cartController.createController(data);
-    
+
           // Envía la respuesta de éxito
           return res.sendSuccessCreate(response);
         } catch (error) {
@@ -34,14 +34,13 @@ export default class CartRouter extends MyRouter {
       }
     );
 
-  
     this.read(
       '/',
-      ['USER','PUBLIC'],
+      ['USER', 'PUBLIC'],
       // passport.authenticate('jwt'),
       async (req, res, next) => {
         try {
-            let response = await cartController.readAllController();
+          let response = await cartController.readAllController();
           if (response) {
             return res.sendSuccess(response);
           } else {
@@ -52,5 +51,47 @@ export default class CartRouter extends MyRouter {
         }
       }
     );
+
+    this.read('/:uid', ['USER', 'PUBLIC'], async (req, res, next) => {
+      try {
+        let response = await cartController.readOneController(req.params.uid);
+        if (response) {
+          return res.sendSuccess(response);
+        } else {
+          return res.sendNotFound('Cart');
+        }
+      } catch (error) {
+        next(error);
+      }
+    });
+
+    this.update('/:uid', ['USER', 'PUBLIC'], async (req, res, next) => {
+      try {
+        let response = await cartController.updateController(
+          req.params.uid,
+          req.body
+        );
+        if (response) {
+          return res.sendSuccess(response);
+        } else {
+          return res.sendNotFound('Cart');
+        }
+      } catch (error) {
+        next(error);
+      }
+    });
+
+    this.delete('/:uid', ['USER', 'PUBLIC'], async (req, res, next) => {
+      try {
+        let response = await cartController.deleteController(req.params.uid);
+        if (response) {
+          return res.sendSuccess(response);
+        } else {
+          return res.sendNotFound('Cart');
+        }
+      } catch (error) {
+        next(error);
+      }
+    });
   }
 }

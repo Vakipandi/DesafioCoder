@@ -8,7 +8,7 @@ export default class OrderRouter extends MyRouter {
   init() {
     this.create(
       '/',
-      ['PUBLIC'],
+      ['USER'],
       passport.authenticate('jwt'),
       async (req, res, next) => {
         try {
@@ -26,7 +26,7 @@ export default class OrderRouter extends MyRouter {
 
     this.read(
       '/',
-      ['PUBLIC'],
+      ['USER'],
       passport.authenticate('jwt'),
       async (req, res, next) => {
         try {
@@ -43,7 +43,7 @@ export default class OrderRouter extends MyRouter {
 
     this.read(
       '/gain',
-      ['PUBLIC'],
+      ['ADMIN'],
       passport.authenticate('jwt'),
       async (req, res, next) => {
         try {

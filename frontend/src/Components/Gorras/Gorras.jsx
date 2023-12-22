@@ -1,7 +1,26 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { CartContext } from '../../Context/CartContext';
+
+import Swal from 'sweetalert2';
+
+
+
 const Gorras = () => {
   const [allGorras, setAllGorras] = useState([]);
+  const { addItem } = useContext(CartContext);
+
+  const handleAddToCart = (product) => {
+    const quantity = 1;
+
+    addItem(product, quantity);
+
+    Swal.fire({
+      title: `${product.title}`,
+      text: 'Producto agregado correctamente!',
+      icon: 'success',
+    });
+  };
 
   const getGorras = async () => {
     const res = await axios.get(`http://localhost:5000/api/products/gorras`);
@@ -31,6 +50,14 @@ const Gorras = () => {
               <div className="card-body">
                 <p className="card-text">Category: {gorras.category}</p>
                 <p className="card-text">Description: {gorras.description}</p>
+              </div>
+              <div className="mx-auto m-3">
+                <button
+                  className="btn btn-primary mx-auto"
+                  onClick={() => handleAddToCart(gorras)}
+                >
+                  Agregar al Carrito
+                </button>
               </div>
             </div>
           </div>

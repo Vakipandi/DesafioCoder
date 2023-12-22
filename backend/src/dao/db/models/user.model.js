@@ -1,4 +1,5 @@
 import { model, Schema, Types } from 'mongoose';
+import bcrypt from 'bcrypt';
 
 let userCollection = 'users';
 
@@ -16,6 +17,9 @@ const userSchema = new Schema({
   password: { type: String, required: true },
 });
 
+userSchema.methods.validPassword = function (password) {
+  return bcrypt.compareSync(password, this.password);
+};
 
 let User = model(userCollection, userSchema);
 export default User;

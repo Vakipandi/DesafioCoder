@@ -5,7 +5,9 @@ import is_same_email from '../../middlewares/is_same_email.js';
 import is_user from '../../middlewares/is_user.js';
 import is_valid_pass from '../../middlewares/is_valid_pass.js';
 import passport from 'passport';
+import compare_pass from '../../middlewares/compare_pass.js';
 import MyRouter from '../router.js';
+import create_hash from '../../middlewares/create_hash.js';
 
 const userController = new UserController();
 
@@ -16,6 +18,8 @@ export default class UserRouter extends MyRouter {
       ['PUBLIC'],
       is_8_char,
       is_same_email,
+      create_hash,
+      create_token,
       async (req, res, next) => {
         try {
           let data = req.body;
@@ -38,18 +42,16 @@ export default class UserRouter extends MyRouter {
       async (req, res, next) => {
         try {
           req.session.email = req.body.email;
-          req.session.role = req.body.role;
           let response = await userController.login();
-          if (response) {
-            return res
-              .cookie('token', req.session.token, {
-                maxAge: 60 * 60 * 24 * 7 * 1000,
-                httpOnly: true,
-              })
-              .sendSuccess(response);
-          } else {
-            return res.sendNotFound('User');
-          }
+          const user = await userController.readOne(req.body.email);
+          return response
+            ? res
+                .cookie('token', req.session.token, {
+                  maxAge: 60 * 60 * 24 * 7 * 1000,
+                  httpOnly: true,
+                })
+                .sendSuccess({ response: response, user: user.response })
+            : res.sendNotFound('user');
         } catch (error) {
           next(error);
         }
@@ -58,20 +60,82 @@ export default class UserRouter extends MyRouter {
 
     this.create(
       '/logout',
-      ['PUBLIC'],
-      passport.authenticate('jwt'),
+      ['USER', 'ADMIN', 'PREMIUM'],
+      passport.authenticate('jwt', { session: false }),
       async (req, res, next) => {
         try {
           req.session.destroy();
           let response = await userController.logout();
           return response
             ? res.clearCookie('token').sendSuccess(response)
-            : res.clearCookie('token').sendNotFound('User');
+            : res.clearCookie('token').sendNotFound('user');
+        } catch (error) {
+          return next(error);
+        }
+      }
+    );
+
+    this.read(
+      '/github/login',
+      ['PUBLIC'],
+      passport.authenticate('github', {
+        scope: ['user:email'],
+      })
+    );
+
+    this.read(
+      '/github/callback',
+      ['PUBLIC'],
+      passport.authenticate('github', {}),
+      (req, res, next) => {
+        try {
+          req.session.email = req.user.email;
+          // req.session.role = req.user.role;
+          return res.status(200).json({
+            success: true,
+            message: 'Github login successful',
+            user: req.user,
+          });
         } catch (error) {
           next(error);
         }
       }
     );
+
+    this.update('/reset-pass', ['USER'], async (req, res, next) => {
+      try {
+        const { email, newPass } = req.body;
+        let user = await userController.readOne(email);
+        if (user) {
+          let response = await userController.resetPass(email, newPass);
+          return response
+            ? res.sendSuccess(response)
+            : res.sendNotFound('User');
+        }
+      } catch {
+        next(error);
+      }
+    });
+
+    this.update('/premiun/:id', ['USER'], async (req, res, next) => {
+      try {
+        const { id } = req.params;
+        let response = await userController.update(id, { role: 'PREMIUN' });
+        return response ? res.sendSuccess(response) : res.sendNotFound('User');
+      } catch {
+        next(error);
+      }
+    });
+
+    this.update('/admin/:id', ['PREMIUN', 'ADMIN'], async (req, res, next) => {
+      try {
+        const { id } = req.params;
+        let response = await userController.update(id, { role: 'ADMIN' });
+        return response ? res.sendSuccess(response) : res.sendNotFound('User');
+      } catch {
+        next(error);
+      }
+    });
   }
 }
 

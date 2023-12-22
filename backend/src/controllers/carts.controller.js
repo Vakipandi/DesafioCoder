@@ -16,12 +16,25 @@ export default class CartController {
   readController(user_id, state) {
     let response = this.service.readService(user_id, state);
     return response;
-
   }
 
-  readAllController(){
+  readAllController() {
     let response = this.service.readAllService();
     return response;
-  
+  }
+
+  readOneController(user_id) {
+    let one = this.service.readOneService(user_id);
+    return one;
+  }
+
+  updateController(user_id, data) {
+    let one = this.service.updateService(user_id, data);
+    return one;
+  }
+
+  deleteController(user_id) {
+    let one = this.service.deleteService(user_id);
+    return one;
   }
 }

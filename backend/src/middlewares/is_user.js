@@ -1,13 +1,12 @@
-import UserService from '../services/users.service.js';
+import UserController from "../controllers/users.controller.js";
 
 export default async function (req, res, next) {
   try {
     const { email } = req.body;
-    const User = new UserService();
-    const user = await User.readOne(email);
-
-    if (user) {
-      req.user = user;
+    const User = new UserController();
+    const one = await User.readOne(email);
+    if (one) {
+      req.user = one;
       next();
     } else {
       return res.status(400).json({

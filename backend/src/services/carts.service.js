@@ -21,4 +21,19 @@ export default class CartService {
     let response = this.model.readAllModels();
     return response;
   }
+
+  readOneService(user_id) {
+    let response = this.model.readOneModel(user_id);
+    return response;
+  }
+
+  updateService(user_id, data) {
+    let response = this.model.updateModel(user_id, data);
+    return response;
+  }
+
+  deleteService(user_id) {
+    let response = this.model.deleteModel(user_id);
+    return response;
+  }
 }
