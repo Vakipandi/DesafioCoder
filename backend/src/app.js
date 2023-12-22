@@ -10,6 +10,7 @@ import IndexRouter from './routes/index.routes.js';
 import passport from 'passport';
 import initializePassport from './middlewares/passport.js';
 import cors from 'cors';
+import path from 'path';
 import sessions from './config/sessions/factory.js';
 import compression from 'express-compression';
 import winston from './middlewares/winston.js';
@@ -46,13 +47,18 @@ app.use(function(req, res, next) {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.JWT_SECRET, { sameSite: 'None' }));
-app.use(express.static(`${__dirname}/public`));
+// app.use(express.static(`${__dirname}/public`));
 
 app.use('/api/docs', serve, setup(specs));
 
 // database
 // const db = new MongoConnect(process.env.DB_CONNECTION);
 // db.connectMongo();
+
+const _dirname = path.resolve()
+console.log(_dirname);
+
+
 
 // express-session
 app.use(sessions);
