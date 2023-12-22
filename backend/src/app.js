@@ -55,12 +55,6 @@ app.use('/api/docs', serve, setup(specs));
 // const db = new MongoConnect(process.env.DB_CONNECTION);
 // db.connectMongo();
 
-const _dirname = path.resolve();
-app.use(path.join(_dirname, '../frontend/dist'));
-app.get('*', (req, res) => {
-  path.join(_dirname, '../frontend/dist/index.html')
-});
-
 // express-session
 app.use(sessions);
 
@@ -72,6 +66,13 @@ app.use(passport.session());
 app.use(compression({ brotli: { enabled: true, zlib: {} } }));
 // routes
 app.use('/api', router.getRouter());
+
+const _dirname = path.resolve();
+app.use(path.join(_dirname, '../frontend/dist'));
+app.get('*', (req, res, next) => {
+  res.sendFile(path.join(_dirname, '../frontend/dist/index.html'));
+  
+});
 
 // error handler
 app.use(notFoundHandler);
