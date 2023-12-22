@@ -69,9 +69,11 @@ app.use(compression({ brotli: { enabled: true, zlib: {} } }));
 app.use('/api', router.getRouter());
 
 const _dirname = path.resolve();
-const indexHtmlPath = path.join(_dirname, '../frontend/dist/index.html');
+const indexHtmlPath = path.join(_dirname, '/frontend/dist/index.html');
+console.log(indexHtmlPath);
 
-app.use(express.static(path.join(_dirname, '../frontend/dist')));
+
+app.use(express.static(path.join(_dirname, '/frontend/dist')));
 
 app.get('*', (req, res, next) => {
   if (fs.existsSync(indexHtmlPath)) {
