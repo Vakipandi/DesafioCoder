@@ -23,7 +23,7 @@ const Pantalones = () => {
 
   const getPantalones = async () => {
     const res = await axios.get(
-      `http://localhost:5000/api/products/pantalones`
+      `https://coder-ecommerce-gugg.onrender.com/api/products/pantalones`
     );
     let pantalones = res.data.response.products;
     setAllPantalones(pantalones);

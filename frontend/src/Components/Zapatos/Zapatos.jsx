@@ -3,7 +3,6 @@ import { useContext, useEffect, useState } from 'react';
 import { CartContext } from '../../Context/CartContext';
 import Swal from 'sweetalert2';
 
-
 const Zapatos = () => {
   const [allZapatos, setAllZapatos] = useState([]);
   const { addItem } = useContext(CartContext);
@@ -21,7 +20,9 @@ const Zapatos = () => {
   };
 
   const getZapatos = async () => {
-    const res = await axios.get(`http://localhost:5000/api/products/zapatos`);
+    const res = await axios.get(
+      `https://coder-ecommerce-gugg.onrender.com/api/products/zapatos`
+    );
     let zapatos = res.data.response.products;
     setAllZapatos(zapatos);
   };

@@ -10,7 +10,7 @@ const Logout = () => {
   const handleLogout = async () => {
     try {
       await axios.post(
-        'http://localhost:5000/api/users/logout',
+        'https://coder-ecommerce-gugg.onrender.com/api/users/logout',
         null, // Puedes enviar null o un objeto vacío en el cuerpo de la solicitud
         {
           withCredentials: true,
