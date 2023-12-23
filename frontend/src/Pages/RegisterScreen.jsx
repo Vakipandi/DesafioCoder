@@ -25,7 +25,7 @@ const RegisterScreen = () => {
     try {
       // Realizar la solicitud al backend para el registro
       const response = await axios.post(
-        'http://localhost:5000/api/users/register',
+        'https://coder-ecommerce-gugg.onrender.com/api/users/register',
         formData
       );
 

@@ -25,7 +25,7 @@ const SearchScreen = () => {
     const fetchData = async () => {
       try {
         const result = await axios.post(
-          `http://localhost:5000/api/search/${searchQuery}`
+          `https://coder-ecommerce-gugg.onrender.com/api/search/${searchQuery}`
         );
 
         const prodsFound = result.data.response.products;

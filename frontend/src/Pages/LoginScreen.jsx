@@ -24,7 +24,7 @@ const LoginScreen = () => {
 
     try {
       const response = await axios.post(
-        'http://localhost:5000/api/users/login',
+        'https://coder-ecommerce-gugg.onrender.com/api/users/login',
         formData,
         {
           withCredentials: true,
