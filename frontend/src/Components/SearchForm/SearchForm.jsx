@@ -15,7 +15,7 @@ const SearchForm = () => {
 
     try {
       const result = await axios.post(
-        `https://coder-ecommerce-gugg.onrender.com/api/search/${searchQuery}`
+        `${import.meta.env.VITE_BASE_URL}/search/${searchQuery}`
       );
 
       const prodsFound = result.data.response.products;

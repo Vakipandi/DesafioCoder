@@ -7,7 +7,6 @@ export default async function (req, res, next) {
     const model = new User();
     const { email } = req.body;
     let userExist = await model.readOne(email);
-    console.log('user__::', userExist);
     if (userExist) {
       return res.status(409).json({
         error: {

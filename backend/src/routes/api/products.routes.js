@@ -77,7 +77,7 @@ export default class ProductsRouter extends MyRouter {
       }
     });
 
-    this.update('/:id', ['ADMIN'], async (req, res, next) => {
+    this.update('/:id', ['PUBLIC','ADMIN'], async (req, res, next) => {
       try {
         let id = req.params.id;
         let data = req.body;

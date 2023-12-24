@@ -21,7 +21,9 @@ const Polos = () => {
   };
 
   const getPolos = async () => {
-    const res = await axios.get(`https://coder-ecommerce-gugg.onrender.com/api/products/polos`);
+    const res = await axios.get(
+      `${import.meta.env.VITE_BASE_URL}/products/polos`
+    );
     let polos = res.data.response.products;
     setAllPolos(polos);
   };

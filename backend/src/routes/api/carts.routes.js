@@ -13,7 +13,7 @@ export default class CartRouter extends MyRouter {
     this.create(
       '/',
       ['USER', 'PUBLIC'],
-      passport.authenticate('jwt', { session: false }), // Deshabilita la sesión ya que estás usando tokens JWT
+      // passport.authenticate('jwt', { session: false }), // Deshabilita la sesión ya que estás usando tokens JWT
       async (req, res, next) => {
         try {
           // Verifica si el usuario está autenticado

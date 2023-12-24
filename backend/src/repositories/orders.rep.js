@@ -7,9 +7,7 @@ import dao from '../dao/factory.js';
 const { Order } = dao;
 
 export default class OrderRepository {
-  constructor(
-
-  ) {
+  constructor() {
     this.model = new Order();
   }
 
@@ -20,6 +18,11 @@ export default class OrderRepository {
 
   readRepository(user_id) {
     let response = this.model.readModel(user_id);
+    return response;
+  }
+
+  readOneRepository(id) {
+    let response = this.model.readOneModel(id);
     return response;
   }
 

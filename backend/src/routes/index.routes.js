@@ -6,6 +6,7 @@ import MailsRouter from './api/mails.routes.js';
 import OrderRouter from './api/orders.routes.js';
 import LoggersRouter from './api/loggers.routes.js';
 import SearchRouter from './api/search.routes.js';
+import PaymentsRouter from './api/payments.routes.js';
 
 const logger = new LoggersRouter();
 const users = new UserRouter();
@@ -14,6 +15,7 @@ const carts = new CartRouter();
 const mails = new MailsRouter();
 const orders = new OrderRouter();
 const search = new SearchRouter();
+const payments = new PaymentsRouter();
 
 export default class IndexRouter extends MyRouter {
   init() {
@@ -23,7 +25,7 @@ export default class IndexRouter extends MyRouter {
     this.use('/users', users.getRouter());
     this.use('/mail', mails.getRouter());
     this.use('/tickets', orders.getRouter());
-    // this.use('/payments', payments.getRouter());
+    this.use('/payments', payments.getRouter());
     this.use('/loggers', logger.getRouter());
     this.use('/search', search.getRouter());
   }

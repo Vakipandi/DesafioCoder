@@ -1,0 +1,211 @@
+components:
+  schemas:
+    Register:
+      type: object
+      properties:
+        email:
+          description: email of the user
+          type: string
+          format: email
+        photo:
+          description: photo of the user
+          type: string
+          format: url
+        name:
+          description: name of the user
+          type: string
+        password:
+          description: password of the user
+          type: string
+          format: password
+      example:
+        email: fake@example.com
+        name: fake name
+        password: password1
+        photo: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+    Login:
+      type: object
+      properties:
+        email:
+          description: email of the user
+          type: string
+          format: email
+        password:
+          description: password of the user
+          type: string
+          format: password
+      example:
+        email: fake@example.com
+        password: password1
+  responses:
+    successRegister:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Indicador del estado de la respuesta
+        response:
+          type: string
+          description: Indicador de qué fue el proceso
+      example:
+        message: User registered
+        response:
+          name: fake name
+          photo: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+          email: fake@example.com
+          role: USER
+          password: '$2b$10$6KllmjZTVQrXH.HiKT2fyOgyeGfAeu6qROvfTfK0AJNHpDedMDV0W'
+          _id: '6586d4cde831d6728dab63eb'
+          __v: 0
+
+    successLogin:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Indicador del estado de la respuesta
+        message:
+          type: string
+          description: mensaje de detalle de la solicitud
+      example:
+        status: success
+        message: user logged in
+
+    successLogout:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Indicador del estado de la respuesta
+        message:
+          type: string
+          description: mensaje de detalle de la solicitud
+      example:
+        status: success
+        message: user logged out
+
+    unauthorized:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Indicador del estado de la respuesta
+        message:
+          type: string
+          description: Indicador de qué error se cometió
+      example:
+        status: unauthorized
+        message: Unauthorized
+
+    fatal:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Indicador del estado de la respuesta
+        message:
+          type: string
+          description: Indicador de qué error se cometió
+      example:
+        status: fatal
+        message: dat is not defined
+
+  securitySchemes:
+    cookiAuth:
+      type: apiKey
+      in: cookie
+      name: token
+
+paths:
+  /api/users/register:
+    post:
+      summary: Register a new user
+      tags:
+        - Sessions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Register'
+      responses:
+        '201':
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/successRegister'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/unauthorized'
+        '500':
+          description: Falla del servidor al registrar el usuario
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/fatal'
+  /api/users/login:
+    post:
+      summary: Login a user
+      tags:
+        - Sessions
+      requestBody:
+        required: true
+        description: obejtos apra iniciar sesion
+        headers:
+          Set-cookie:
+            schema:
+              type: string
+              example: token=kasjldhlaskjdhal.dlasjhdakda.klajh21io3718
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+      responses:
+        '200':
+          description: User logged in successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/successLogin'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/unauthorized'
+        '500':
+          description: Falla del servidor al loguear el usuario
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/fatal'
+  /api/users/logout:
+    post:
+      summary: Logout a user
+      tags:
+        - Sessions
+      security:
+        -cookieAuth: []
+      responses:
+        '200':
+          description: User logged in successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/successLogout'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/unauthorized'
+        '500':
+          description: Falla del servidor al loguear el usuario
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/fatal'

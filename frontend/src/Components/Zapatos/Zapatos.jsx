@@ -21,7 +21,7 @@ const Zapatos = () => {
 
   const getZapatos = async () => {
     const res = await axios.get(
-      `https://coder-ecommerce-gugg.onrender.com/api/products/zapatos`
+      `${import.meta.env.VITE_BASE_URL}/products/zapatos`
     );
     let zapatos = res.data.response.products;
     setAllZapatos(zapatos);

@@ -13,15 +13,24 @@ export default class OrderMongo {
     };
   }
 
-  async readModel(user_id) {
-    let all = await Order.find({ user_id });
-    if (all.length > 0) {
-      return {
-        message: 'Orders found',
-        response: { orders: all },
-      };
-    } else {
-      return null;
+  async readOneModel(id) {
+    try {
+      console.log('Trying to find order with ID:', id);
+      let one = await Order.findById(id);
+
+      if (one) {
+        console.log('Order found:', one);
+        return {
+          message: 'Order found',
+          response: { order: one },
+        };
+      } else {
+        console.log('Order not found with ID:', id);
+        return null;
+      }
+    } catch (error) {
+      console.error('Error while finding order:', error);
+      throw error; // Propaga el error hacia arriba
     }
   }
 
@@ -75,7 +84,6 @@ export default class OrderMongo {
         },
       },
     ]);
-    
 
     if (totalCart.length > 0) {
       return {

@@ -18,6 +18,11 @@ export default class OrderService {
     return response;
   }
 
+  readOneService(id) {
+    let response = this.repository.readOneRepository(id);
+    return response;
+  }
+
   getTotalCartService(user_id) {
     let response = this.repository.getTotalCartRepository(user_id);
     return response;

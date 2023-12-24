@@ -3,8 +3,14 @@ import { CartContext } from '../Context/CartContext';
 import { Link } from 'react-router-dom';
 
 const CartScreen = () => {
-  const { cart, updateQuantity, removeItem, clearCart, totalQuantity, cartTotal } =
-    useContext(CartContext);
+  const {
+    cart,
+    updateQuantity,
+    removeItem,
+    clearCart,
+    totalQuantity,
+    cartTotal,
+  } = useContext(CartContext);
 
   const handleCheckout = () => {
     // Lógica de procesamiento del pedido
@@ -37,7 +43,9 @@ const CartScreen = () => {
                   <td>
                     <button
                       className="btn btn-sm btn-secondary me-2"
-                      onClick={() => updateQuantity(item._id, item.quantity - 1)}
+                      onClick={() =>
+                        updateQuantity(item._id, item.quantity - 1)
+                      }
                       disabled={item.quantity <= 1}
                     >
                       -
@@ -45,7 +53,9 @@ const CartScreen = () => {
                     {item.quantity}
                     <button
                       className="btn btn-sm btn-secondary ms-2"
-                      onClick={() => updateQuantity(item._id, item.quantity + 1)}
+                      onClick={() =>
+                        updateQuantity(item._id, item.quantity + 1)
+                      }
                       disabled={item.quantity >= item.stock}
                     >
                       +

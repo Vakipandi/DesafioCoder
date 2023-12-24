@@ -14,6 +14,14 @@ export default class OrderController {
     let response = this.service.readService(user_id);
     return response;
   }
+
+  readOneController(id) {
+    let response = this.service.readOneService(id);
+    return response;
+  
+  }
+
+
   getTotalCartController(user_id) {
     let response = this.service.getTotalCartService(user_id);
     return response;

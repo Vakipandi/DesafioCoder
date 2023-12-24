@@ -23,7 +23,7 @@ const Gorras = () => {
   };
 
   const getGorras = async () => {
-    const res = await axios.get(`http://localhost:5000/api/products/gorras`);
+    const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/products/gorras`);
     let gorras = res.data.response.products;
     setAllGorras(gorras);
   };

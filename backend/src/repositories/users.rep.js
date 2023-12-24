@@ -14,9 +14,7 @@ export default class UserRepository {
 
   async register(data) {
     let dataDto = new UserDto(data);
-    console.log('dataDTO', dataDto);
     let response = await this.model.register(dataDto);
-    console.log('response', response);
     return response;
   }
 

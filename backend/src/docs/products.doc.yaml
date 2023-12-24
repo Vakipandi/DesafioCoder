@@ -109,6 +109,24 @@ components:
             status: true
             category: zapatos
 
+    successUpdate:
+      type: object
+      properties:
+        message: state of response
+        response: object updated
+      example:
+        message: Product updated successfully
+        response:
+          _id: XXXXXXXXXXXXXXXXXXXXXXXX
+          title: zapatillas naiki,
+          description: zapatillas naiki 231231231
+          price: 321321
+          image: none
+          stock: 23
+          code: hola1235678
+          status: true
+          category: zapax
+
     notFound:
       type: object
       properties:
@@ -226,6 +244,68 @@ paths:
                 $ref: '#/components/responses/notFound'
         '500':
           description: Falla del servidor leer los productos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/fatal'
+    put:
+      summary: Update a Product
+      tags:
+        - Product
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ObjectId of product
+          schema:
+            $type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/Product'
+      responses:
+        '200':
+          description: Product updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/successUpdate'
+        '404':
+          description: Documento/s no encontrados
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/notFound'
+        '500':
+          description: Falla del servidor al modificar un producto
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/fatal'
+    delete:
+      summary: Delete a Product
+      tags:
+        - Product
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ObjectId of product
+          schema:
+            $type: string
+      responses:
+        '200':
+          description: Product deleted
+        '404':
+          description: Documento/s no encontrados
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/notFound'
+        '500':
+          description: Falla del servidor al eliminar un producto
           content:
             application/json:
               schema:

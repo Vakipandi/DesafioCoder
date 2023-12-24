@@ -7,8 +7,6 @@
     "dev": "nodemon src/app.js",
     "devdev": "nodemon src/app.js 7000",
     "fakerproduct": "node src/dao/data/products.mock.js",
-    "mocha": "mocha test/mocha",
-    "chai": "mocha test/chai",
     "supertest": "mocha test/supertest"
   },
   "keywords": [],
@@ -45,6 +43,7 @@
     "passport-local": "^1.0.0",
     "session-file-store": "^1.5.0",
     "socket.io": "^4.7.2",
+    "stripe": "^14.10.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0",
     "twilio": "^3.40.0",

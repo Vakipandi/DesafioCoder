@@ -41,6 +41,19 @@ export default class OrderRouter extends MyRouter {
       }
     );
 
+    this.read('/:id', ['USER', 'PREMIUN'], async (req, res, next) => {
+      try {
+        let { id } = req.params;
+        console.log('Trying to read order with ID:', id);
+        let response = await orderController.readOneController(id);
+        
+        
+        return response ? res.sendSuccess(response) : res.sendNotFound('Order');
+      } catch (error) {
+        next(error);
+      }
+    });
+
     this.read(
       '/gain',
       ['ADMIN'],

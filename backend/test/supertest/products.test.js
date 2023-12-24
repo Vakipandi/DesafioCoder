@@ -26,7 +26,6 @@ describe('Testing PRODUCTS', () => {
   it('Must read all products', async () => {
     const response = await requester.get('/products/all');
     
-
     expect(response.statusCode).to.equal(201);
     expect(response.body.response.products.length).to.be.greaterThan(0);
   });

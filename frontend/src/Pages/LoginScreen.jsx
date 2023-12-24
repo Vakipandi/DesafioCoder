@@ -24,7 +24,7 @@ const LoginScreen = () => {
 
     try {
       const response = await axios.post(
-        'https://coder-ecommerce-gugg.onrender.com/api/users/login',
+        `${import.meta.env.VITE_BASE_URL}/users/login`,
         formData,
         {
           withCredentials: true,

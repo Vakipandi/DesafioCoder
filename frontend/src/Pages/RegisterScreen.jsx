@@ -25,7 +25,7 @@ const RegisterScreen = () => {
     try {
       // Realizar la solicitud al backend para el registro
       const response = await axios.post(
-        'https://coder-ecommerce-gugg.onrender.com/api/users/register',
+        `${import.meta.env.VITE_BASE_URL}/users/register`,
         formData
       );
 

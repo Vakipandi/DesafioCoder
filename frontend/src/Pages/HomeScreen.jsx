@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import Pagination from '../Components/Pagination/Pagination';
 import { CartContext } from '../Context/CartContext';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
 const HomeScreen = () => {
   const [products, setProducts] = useState([]);
@@ -17,15 +17,15 @@ const HomeScreen = () => {
 
     Swal.fire({
       title: `${product.title}`,
-      text: "Producto agregado correctamente!",
-      icon: "success"
+      text: 'Producto agregado correctamente!',
+      icon: 'success',
     });
   };
 
   const fetchProducts = async (page) => {
     try {
       const result = await axios.get(
-        `https://coder-ecommerce-gugg.onrender.com/api/products?page=${page}`
+        `${import.meta.env.VITE_BASE_URL}/products?page=${page}`
       );
 
       const { products: paginatedProducts, control } = result.data.response;
@@ -44,7 +44,7 @@ const HomeScreen = () => {
   }, [currentPage]);
 
   return (
-    <div className='container'>
+    <div className="container">
       <h1 className="d-flex justify-content-center m-4">
         Todos Los Productos Paginados
       </h1>

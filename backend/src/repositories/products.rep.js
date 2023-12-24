@@ -12,7 +12,7 @@ export default class ProductRepository {
     this.model = new Product();
   }
 
-    createRepository(data) {
+  createRepository(data) {
     let response = this.model.createModel(data);
     return response;
   }
@@ -26,11 +26,10 @@ export default class ProductRepository {
     let response = this.model.readAllModel();
     return response;
   }
-  
+
   readCategoryRepository(category) {
     let response = this.model.readCategoryModel(category);
     return response;
-
   }
 
   readOneRepository(id) {
@@ -39,7 +38,6 @@ export default class ProductRepository {
   }
 
   updateRepository(id, data) {
-    data = new ProductDto(data);
     let response = this.model.updateModel(id, data);
     return response;
   }
@@ -48,6 +46,4 @@ export default class ProductRepository {
     let response = this.model.deleteModel(id);
     return response;
   }
-
-  
 }

@@ -1,0 +1,243 @@
+components:
+  schemas:
+    Cart:
+      type: object
+      properties:
+        userId:
+          description: user id
+          type: string
+        products:
+          type: array
+          description: products in cart
+      example:
+        user_id: 6557732462e14ce65ad8e67f
+        products:
+          - product_id: 6557732462e14ce65ad8e67f
+            quantity: 2
+          - product_id: 6557732462e14ce65ad8e67f
+            quantity: 2
+  responses:
+    succesCreate:
+      type: object
+      properties:
+        message: state of response
+        response: cart created
+      example:
+        message: cart created
+        response:
+          user_id: XXXXXXXXXXXXXXXXXXXXXXXX
+          products:
+            - product_id: XXXXXXXXXXXXXXXXXXXXXXXX
+              quantity: 2
+            - product_id: XXXXXXXXXXXXXXXXXXXXXXXX
+              quantity: 2
+
+    succesRead:
+      type: object
+      properties:
+        message: state of response
+        response: cart read
+      example:
+        message: cart read
+        response:
+          user_id: XXXXXXXXXXXXXXXXXXXXXXXX
+          products:
+            - product_id: XXXXXXXXXXXXXXXXXXXXXXXX
+              quantity: 2
+            - product_id: XXXXXXXXXXXXXXXXXXXXXXXX
+              quantity: 2
+
+    succesUpdate:
+      type: object
+      properties:
+        message: state of response
+        response: cart updated
+      example:
+        message: cart updated
+        response:
+          userId: XXXXXXXXXXXXXXXXXXXXXXXX
+          products:
+            - productId: XXXXXXXXXXXXXXXXXXXXXXXX
+              quantity: 2
+            - productId: XXXXXXXXXXXXXXXXXXXXXXXX
+              quantity: 2
+
+    notFound:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Indicador del estado de la respuesta
+        message:
+          type: string
+          description: Indicador de qué error se cometió
+      example:
+        status: error
+        message: Not found documents
+
+    fatal:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Indicador del estado de la respuesta
+        message:
+          type: string
+          description: Indicador de qué error se cometió
+      example:
+        status: fatal
+        message: dat is not defined
+paths:
+  /api/carts:
+    post:
+      summary: Create a new cart
+      tags:
+        - Carts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cart'
+      responses:
+        '201':
+          description: Cart created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/successCreate'
+        '404':
+          description: Not found documents
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/notFound'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/fatal'
+    get:
+      summary: Get all carts
+      tags:
+        - Carts
+      responses:
+        '200':
+          description: Carts read
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/successRead'
+        '404':
+          description: Not found documents
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/notFound'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/fatal'
+  /api/carts/{uid}:
+    get:
+      summary: Get a cart by uid
+      tags:
+        - Carts
+      parameters:
+        - in: path
+          name: uid
+          schema:
+            type: string
+          required: true
+          description: The uid of the cart to retrieve
+      responses:
+        '200':
+          description: Cart read
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/successRead'
+        '404':
+          description: Not found documents
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/notFound'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/fatal'
+    put:
+      summary: Update a cart by uid
+      tags:
+        - Carts
+      parameters:
+        - in: path
+          name: uid
+          schema:
+            type: string
+          required: true
+          description: The uid of the cart to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cart'
+              example:
+                user_id: XXXXXXXXXXXXXXXXXXXXXXXX
+                products:
+                  - product_id: XXXXXXXXXXXXXXXXXXXXXXXX
+                    quantity: 2
+                  - product_id: XXXXXXXXXXXXXXXXXXXXXXXX
+                    quantity: 2
+      responses:
+        '200':
+          description: Cart updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/successUpdate'
+        '404':
+          description: Not found documents
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/notFound'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/fatal'
+    delete:
+      summary: Delete a cart by uid
+      tags:
+        - Carts
+      parameters:
+        - in: path
+          name: uid
+          schema:
+            type: string
+          required: true
+          description: The uid of the cart to delete
+      responses:
+        '200':
+          description: Cart deleted
+        '404':
+          description: Not found documents
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/notFound'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/fatal'
